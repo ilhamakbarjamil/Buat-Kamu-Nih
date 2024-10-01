@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hai kamuu</title>
+    <link rel="icon" href="image/image 9.png" type="image/png">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #ffe6e6;
+            background-image: url('image/image 2.gif');
+            background-size: cover; 
+            background-attachment: fixed; 
+            background-position: center;
+            background-repeat: no-repeat;
+            overflow: auto; 
+        }
+        .container {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 20px; 
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            max-width: 90%; 
+            width: auto; 
+            text-align: center; 
+            margin-top: 200px; 
+        }
+        input, button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 25px;
+            width: 100%; 
+            max-width: 300px; 
+        }
+        input {
+            background-color: #ffffff;
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+            width: 70%; 
+            max-width: 300px;
+        }
+        button {
+            background-color: #ff6b6b;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #ff4757;
+        }
+        #greetingText {
+            font-size: 24px;
+            color: #ff6b6b;
+            margin-bottom: 20px;
+        }
+        .heart {
+            font-size: 50px;
+            color: #ff6b6b;
+            animation: pulse 1s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        #greeting img {
+            display: block;
+            margin: 0 auto 20px auto;
+            max-width: 50%; 
+            height: auto; 
+            max-height: 70vh; 
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="heart">❤️</div>
+        <div id="nameForm">
+            <input type="text" id="userName" placeholder="Masukkan nama Anda" onkeypress="handleKeyPress(event)">
+            <button onclick="showGreetingAndPlayMusic()">Next</button>
+        </div>
+        <div id="greeting" style="display: none;">
+            <img src="image/image 1.gif" alt="Gambar Sapaan">
+            <p id="greetingText"></p>
+            <div id="buttons">
+                <button onclick="showBaikMessage()">Baik</button>
+                <button onclick="showBurukMessage()">Buruk</button>
+            </div>
+        </div>
+    </div>
+
+    <audio id="backgroundMusic" src="mp3/music 1.mp3"></audio>
+
+    <script>
+        const backgroundMusic = document.getElementById('backgroundMusic');
+
+        function showGreetingAndPlayMusic() {
+            showGreeting();
+            backgroundMusic.play();
+            localStorage.setItem('musicPlaying', 'true');
+        }
+
+        function showGreeting() {
+            const userName = document.getElementById('userName').value;
+            if (userName) {
+                document.getElementById('nameForm').style.display = 'none';
+                document.getElementById('greeting').style.display = 'block';
+                document.getElementById('greetingText').innerText = `Hai ${userName}, apa kabar kamu hari ini?`;
+            } else {
+                alert('Silakan masukkan nama Kamu.');
+            }
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                showGreetingAndPlayMusic();
+            }
+        }
+
+        function showBaikMessage() {
+            document.getElementById('greetingText').innerText = "Aku bersyukur kamu baik-baik aja, seperti senja yang datang membawa tenang setelah hari yang panjang. Mendengar kabarmu adalah pelipur lara yang aku nantikan, menenangkan jiwa yang selalu ingin tahu bagaimana keadaanmu. Semoga bahagiamu terus berpendar, menjadi cahaya kecil yang menghangatkan hati dan menemani setiap langkahmu ke depan.";
+            document.querySelector('#greeting img').src = 'image/image 3.gif';
+            document.getElementById('buttons').style.display = 'none';
+            const nextButton = document.createElement('button');
+            nextButton.innerText = 'Next';
+            nextButton.onclick = function() {
+                document.querySelector('#greeting img').src = 'image/image 4.gif';
+                document.getElementById('greetingText').innerText = "Aku ada sedikit gombalan nihh buat kamu";
+                nextButton.style.display = 'none';
+                const finalNextButton = document.createElement('button');
+                finalNextButton.innerText = 'Next';
+                finalNextButton.onclick = function() {
+                    document.querySelector('#greeting img').src = 'image/image 5.gif';
+                    document.getElementById('greetingText').innerText = "Kalau hatiku ibarat website, berarti kamu itu seperti domain yang kan selalu kucari. Setiap hari rasanya ingin terus connect, nggak pernah mau timeout dari kamu.";
+                    finalNextButton.style.display = 'none';
+                    const lastNextButton = document.createElement('button');
+                    lastNextButton.innerText = 'Next';
+                    lastNextButton.onclick = function() {
+                        document.querySelector('#greeting img').src = 'image/image 6.gif';
+                        document.getElementById('greetingText').innerText = "Maaf yah kalau gombalannya enggak jelas hehhe... btw jalan yukk";
+                        lastNextButton.style.display = 'none';
+                        const buttonContainer = document.createElement('div');
+                        buttonContainer.style.marginTop = '20px';
+                        const mauButton = document.createElement('button');
+                        mauButton.innerText = 'Mau';
+                        mauButton.onclick = function() {
+                            backgroundMusic.pause(); 
+                            window.open('https://wa.me/6281315091163?text=' + encodeURIComponent('yukk, aku mau'), '_blank');
+                        };
+                        const gamauButton = document.createElement('button');
+                        gamauButton.innerText = 'Gamau';
+                        gamauButton.onclick = function() {
+                            backgroundMusic.pause(); 
+                            window.open('https://wa.me/6281315091163?text=' + encodeURIComponent('maaf yahh aku gamau'), '_blank');
+                        };
+                        buttonContainer.appendChild(mauButton);
+                        buttonContainer.appendChild(gamauButton);
+                        document.getElementById('greeting').appendChild(buttonContainer);
+                    };
+                    document.getElementById('greeting').appendChild(lastNextButton);
+                };
+                document.getElementById('greeting').appendChild(finalNextButton);
+            };
+            document.getElementById('greeting').appendChild(nextButton);
+        }
+
+        function showBurukMessage() {
+            document.getElementById('greetingText').innerText = "Mungkin hari ini terasa berat dan langkahmu terasa gontai, seolah dunia tak memahami rasa yang bergelayut di hatimu. Tapi ketahuilah, tidak apa-apa merasa rapuh, tidak apa-apa jika air mata jatuh. Kamu bukan sendiri; perasaanmu adalah bagian dari indahnya menjadi manusia. Seperti senja yang perlahan memeluk malam, meski redup, ia tetap cantik dalam kesendiriannya. Beri ruang pada dirimu untuk merasakan semua ini, karena pada akhirnya, badai yang kamu hadapi akan menuntunmu menuju pelangi yang lebih indah. Kamu tak harus selalu kuat, cukup bernafas, dan izinkan dirimu untuk perlahan pulih";
+            document.querySelector('#greeting img').src = 'image/image 7.gif';
+            document.getElementById('buttons').style.display = 'none';
+            const nextButton = document.createElement('button');
+            nextButton.innerText = 'Next';
+            nextButton.onclick = function() {
+                document.querySelector('#greeting img').src = 'image/image 8.gif';
+                const userName = document.getElementById('userName').value;
+                document.getElementById('greetingText').innerText = `Jalan yukk nanti aku bisa kokk jadi pendengar yang baik, kalau ${userName} ingin diberikan masukan pasti aku usahakan juga kokk`;
+                nextButton.style.display = 'none';
+                const buttonContainer = document.createElement('div');
+                buttonContainer.style.marginTop = '20px';
+                const mauButton = document.createElement('button');
+                mauButton.innerText = 'Mau';
+                mauButton.onclick = function() {
+                    backgroundMusic.pause(); 
+                    window.open('https://wa.me/6281315091163?text=' + encodeURIComponent('yukk, aku mau'), '_blank');
+                };
+                const gamauButton = document.createElement('button');
+                gamauButton.innerText = 'Gamau';
+                gamauButton.onclick = function() {
+                    backgroundMusic.pause(); 
+                    window.open('https://wa.me/6281315091163?text=' + encodeURIComponent('maaf yahh aku gamau'), '_blank');
+                };
+                buttonContainer.appendChild(mauButton);
+                buttonContainer.appendChild(gamauButton);
+                document.getElementById('greeting').appendChild(buttonContainer);
+            };
+            document.getElementById('greeting').appendChild(nextButton);
+        }
+
+        window.onload = function() {
+            if (localStorage.getItem('musicPlaying') === 'true') {
+                backgroundMusic.play();
+            }
+        }
+    </script>
+</body>
+</html>
